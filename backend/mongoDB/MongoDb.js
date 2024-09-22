@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const mongoURI = 'mongodb://localhost:27017/mydatabase'
+const mongoURI = 'mongodb+srv://mukulved07:sXXCXdeb5le04Zh2@cluster0.qxkhg.mongodb.net/Mean'
 const MongoDBData  = mongoose.connect(mongoURI).then(()=>{
     console.log("Connected to MongoDB")
 }).catch((error)=>{
