@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <h2>Task List</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Due Date</th>
+        <th>Edit</th>
+        <th style="margin-left: -50px;">Delete</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.Title }}</td>
+        <td>{{ task.Description }}</td>
+        <td>{{ task.Status }}</td>
+        <td>{{ task.Priority }}</td>
+        <td>{{ task.DueData }}</td> 
+        <td>
+          <button class="btn btn-warning" (click)="onEdit(task)">Edit</button>
+          
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="onDelete(task._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+  

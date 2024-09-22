@@ -1,0 +1,44 @@
+
+<div id="body">
+   
+<form (ngSubmit)="onCreate()">
+  
+  <div class="mb-3">
+    <h2 style="text-align: center;">Create Task</h2>
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" [(ngModel)]="Title" required placeholder="Enter task title">
+  </div>
+  
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" id="description" rows="3" name="description" [(ngModel)]="Description" required placeholder="Enter task description"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="status" class="form-label">Status</label>
+    <select class="form-select" [(ngModel)]="Status" name="status" required id="status">
+      <option value="To Do">To Do</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Done">Done</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="priority" class="form-label">Priority</label>
+    <select class="form-select" [(ngModel)]="Priority" name="priority" required id="priority">
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="dueDate" class="form-label">Due Date</label>
+    <input type="date" class="form-control" [(ngModel)]="DueData" name="duedate" required id="dueDate">
+  </div>
+  <div style="width: 100%; display:flex; justify-content:space-between">
+  <button type="submit" class="btn btn-primary">Create Task</button>
+  <button type="submit" class="btn btn-primary" (click)="onRead()">Read Task</button>
+</div>
+</form>
+</div>
