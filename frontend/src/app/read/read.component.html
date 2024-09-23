@@ -9,10 +9,19 @@
     (input)="applyFilter()"
   />
 
-
+ 
   <button class="btn btn-primary mb-3" (click)="sortByDate()">
     Sort by Due Date {{ sortDirection === 'asc' ? '↑' : '↓' }}
   </button>
+
+  
+  <select class="form-select" [(ngModel)]="selectedPriority" (change)="applyFilter()" name="priority" id="priority">
+    <option value="">All</option> 
+    <option value="Low">Low</option>
+    <option value="Medium">Medium</option>
+    <option value="High">High</option>
+  </select>
+  
 
   <table class="table table-striped">
     <thead>
