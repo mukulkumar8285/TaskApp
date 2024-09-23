@@ -1,5 +1,19 @@
 <div class="container mt-5">
   <h2>Task List</h2>
+
+  <input
+    type="text"
+    class="form-control mb-3"
+    placeholder="Search by title or description"
+    [(ngModel)]="searchQuery"
+    (input)="applyFilter()"
+  />
+
+
+  <button class="btn btn-primary mb-3" (click)="sortByDate()">
+    Sort by Due Date {{ sortDirection === 'asc' ? '↑' : '↓' }}
+  </button>
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -9,20 +23,18 @@
         <th>Priority</th>
         <th>Due Date</th>
         <th>Edit</th>
-        <th style="margin-left: -50px;">Delete</th>
-
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let task of tasks">
+      <tr *ngFor="let task of filteredTasks">
         <td>{{ task.Title }}</td>
         <td>{{ task.Description }}</td>
         <td>{{ task.Status }}</td>
         <td>{{ task.Priority }}</td>
-        <td>{{ task.DueData }}</td> 
+        <td>{{ task.DueData | date: 'shortDate' }}</td> <!-- Format date -->
         <td>
           <button class="btn btn-warning" (click)="onEdit(task)">Edit</button>
-          
         </td>
         <td>
           <button class="btn btn-danger" (click)="onDelete(task._id)">Delete</button>
@@ -31,6 +43,3 @@
     </tbody>
   </table>
 </div>
-
-
-  
