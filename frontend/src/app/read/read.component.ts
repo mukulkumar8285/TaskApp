@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+
 export interface Task {
   _id: string;
   Title: string;
@@ -15,16 +16,17 @@ export interface Task {
 @Component({
   selector: 'app-read',
   standalone: true,
-  imports: [HttpClientModule, CommonModule, FormsModule], 
+  imports: [HttpClientModule, CommonModule, FormsModule],
   templateUrl: './read.component.html',
   styleUrls: ['./read.component.css']
 })
 export class ReadComponent implements OnInit {
   tasks: Task[] = [];
-  filteredTasks: Task[] = []; 
-  searchQuery: string = ''; 
-  sortDirection: string = 'asc'; 
-  
+  filteredTasks: Task[] = [];
+  searchQuery: string = '';
+  sortDirection: string = 'asc';
+  selectedPriority: string = '';  
+
   private apiUrl = 'http://localhost:3000/api/user';
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -40,7 +42,7 @@ export class ReadComponent implements OnInit {
     this.http.get<{ message: string; data: Task[] }>(`${this.apiUrl}/read`, { headers }).subscribe(
       (response) => {
         this.tasks = response.data;
-        this.filteredTasks = this.tasks; 
+        this.filteredTasks = this.tasks;
       },
       (error) => {
         console.error('Error fetching tasks:', error);
@@ -50,14 +52,14 @@ export class ReadComponent implements OnInit {
 
   applyFilter() {
     const query = this.searchQuery.toLowerCase();
-    
-    this.filteredTasks = this.tasks
-      .filter(task =>
-        task.Title.toLowerCase().includes(query) ||
-        task.Description.toLowerCase().includes(query)
-      );
-    
-  
+
+    this.filteredTasks = this.tasks.filter(task => {
+      const matchesQuery = task.Title.toLowerCase().includes(query) || task.Description.toLowerCase().includes(query);
+      const matchesPriority = this.selectedPriority ? task.Priority === this.selectedPriority : true;  
+
+      return matchesQuery && matchesPriority;  
+    });
+
     this.sortByDate();
   }
 
@@ -83,7 +85,7 @@ export class ReadComponent implements OnInit {
       (response) => {
         console.log('Task deleted successfully:', response.message);
         this.tasks = this.tasks.filter(task => task._id !== task_id);
-        this.applyFilter(); 
+        this.applyFilter();
       },
       (error) => {
         console.error('Error deleting task:', error);
